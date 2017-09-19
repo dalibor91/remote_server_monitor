@@ -1,0 +1,39 @@
+<div class="box-head">
+  <h5>Currently running processes</h5>
+</div>
+<div class="box-content" id="server-processes">
+  <table class="u-full-width">
+    <thead>
+      <tr>
+        <th>PID</th>
+        <th title="Parent Id">PPID</th>
+        <th>Exec</th>
+        <th>Name</th>
+        <th>Owner</th>
+        <th>Threads</th>
+        <th title="CPU usage in %">CPU</th>
+        <th>Created At</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+  </table>
+
+  <div style="display: none">
+    {% raw %}
+    <script type="text/template" data-tpl="table-row">
+      <tr data-pid="{{ pid }}">
+        <td>{{ pid }}</td>
+        <td>{{ ppid }}</td>
+        <td>{{ cmd_line }}</td>
+        <td>{{ name }}</td>
+        <td>{{ username }}</td>
+        <td>{{ threads }}</td>
+        <td>{{ cpu_percent }}</td>
+        <td>{{ create_time }}</td>
+      </tr>
+    </script>
+    {% endraw %}
+  </div>
+</div>

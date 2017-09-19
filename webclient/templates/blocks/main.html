@@ -1,0 +1,36 @@
+<div class="header">
+  <div class="row">
+    <div class="two columns">
+      <a href="/" onclick="window.close(); return false;"><i class="fa fa-times" aria-hidden="true"></i></a>
+    </div>
+    <div class="five columns">
+      {{server_data['user']}}@{{ server_data['host'] }}
+    </div>
+    <div class="five columns">
+      <span id="request-count"></span>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row first-row">
+    <div class="four columns box">
+      {% include "blocks/platform.html" %}
+    </div>
+    <div class="four columns box">
+      {% include "blocks/cpu.html" %}
+    </div>
+    <div class="four columns box">
+      {% include "blocks/disks.html" %}
+    </div>
+  </div>
+  <br/>
+  <div class="row">
+    <div class="eight columns box">
+      {% include "blocks/processes.html" %}
+    </div>
+    
+    <div class="four columns box">
+      {% include "blocks/network.html" %}
+    </div>
+  </div>
+</div>

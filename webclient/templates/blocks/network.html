@@ -1,0 +1,34 @@
+<div class="box-head">
+  <h5>Network Connections</h5>
+</div>
+<div class="box-content" id="network-connections">
+  <table class="u-full-width">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Family</th>
+        <th>LAddr</th>
+        <th>LPort</th>
+        <th>RAddr</th>
+        <th>RPoty</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <div style="display: none">
+    {% raw %}
+    <script type="text/template" data-tpl="row">
+      <tr>
+        <td>{{ type }}</td>
+        <td>{{ family }}</td>
+        <td>{{ local_address }}</td>
+        <td>{{ local_port }}</td>
+        <td>{{ remote_address }}</td>
+        <td>{{ remote_port }}</td>
+        <td>{{ status }}</td>
+      </tr>
+    </script>
+    {% endraw %}
+  </div>
+</div>
