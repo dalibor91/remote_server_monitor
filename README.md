@@ -4,5 +4,5 @@ you install server on machines that you want to monitor, run service on some por
 and webclient provides web based realtime client where you can monitor your servers 
 
 
-
+![alt text](https://dalibor.me/static/images/rsm.png)
 
