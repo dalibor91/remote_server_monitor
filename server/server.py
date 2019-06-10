@@ -138,7 +138,7 @@ class AuthSocketServer(SocketServer.BaseRequestHandler):
 
 
 args = {
-	"host" : "localhost",
+	"host" : "0.0.0.0",
 	"port" : "8765",
 	"auth" : "%s/.pysock.db" % os.path.expanduser("~"),
 }

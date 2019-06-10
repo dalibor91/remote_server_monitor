@@ -1,43 +1,16 @@
-import json
-import time
-import base64
 import socket
-import ConfigParser
+import json
 
-#log
-def log(message, type="INFO"):
-    print "[%s] - %s" % (type, message)
-
-#encoding Server sent events data
-def encodeSSE(event, data):
-    return "id: %s\ndata: %s\n\n" % (int(time.time()), data)
-
-
-def read_servers_file(path):
-    parser = ConfigParser.ConfigParser();
-    parser.read(path)
-    data = {}
-    for sec in parser.sections():
-        data[sec] = {}
-        for t in parser.items(sec):
-            key, val = t
-            data[sec][key] = val
-
-    return data
-
-
-class SockConnect:
-    def __init__(self, data):
-
-        self.host = data['host']
-        self.port = int(data['port'])
-        self.user = data['user']
-        self.pswd = data['pass']
+class Connection:
+    def __init__(self, user, passwd, host="localhost", port=8765):
+        self.host = host
+        self.port = int(port)
+        self.user = user
+        self.pswd = passwd
         self.__connect()
-        if not self.auth:
-            raise Exception("Unable to auth")
-        pass
 
+        if not self.auth:
+            raise Exception("Unable to auth %s:%s" % (self.user, self.pswd))
 
     def __connect(self):
         self.sock = socket.socket()
@@ -57,6 +30,7 @@ class SockConnect:
 
     def pool(self, command):
         self.sock.send('{ "command": "%s" }' % command)
+        #print('{ "command": "%s" }' % command)
         text = ""
         while 1:
             data = self.sock.recv(1024)
