@@ -37,6 +37,12 @@ or
 ```bash
 bin/server -h localhost -p 9999 -f ./users.txt
 ```
+
+run tests
+```bash 
+bin/test
+```
+
 host, port, file for auth 
 currently users are saved in single text file, but it can be extended to support databases 
 
