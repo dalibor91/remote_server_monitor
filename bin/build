@@ -1,7 +1,10 @@
 #!/bin/bash 
 
+image_name="monitor"
 
-docker build -t monitor .
+docker build -t "${image_name}" .
 
-docker run -it --rm -v "`pwd`:/server" -p "8765:8765" monitor bash
-
+if [ "$1" = "" ];
+then
+    docker run -it --rm -v "`pwd`:/server" -p "8765:8765"  "${image_name}" bash
+fi

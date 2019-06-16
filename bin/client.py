@@ -12,11 +12,20 @@ from server.lib import Connection
 con = Connection("test", "test", host="0.0.0.0")
 
 while True:
-    command = input("> ")
-    if command == 'quit':
+    _command = input("> ")
+    if _command == 'quit':
         break
 
-    res = json.loads(con.pool(command), encoding='utf8')
+    __command = _command.split(" ", 2)
+
+    data = None
+    command = None
+    if len(__command) == 2:
+        command, data = __command
+    else:
+        command = __command[0]
+
+    res = json.loads(con.pool(command, data=data), encoding='utf8')
 
     if res['error']:
         print(">> ERROR: %s" % res['response'])

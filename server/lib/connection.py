@@ -23,11 +23,11 @@ class Connection:
             self.auth = True
 
     def close(self):
-        self.sock.send('{"command": "close"}')
+        self.sock.send('{"command": "close"}'.encode('utf8'))
         self.sock.close()
 
-    def pool(self, command):
-        self.sock.send(('{ "command": "%s" }' % command).encode('utf8'))
+    def pool(self, command, data=None):
+        self.sock.send(('{ "command": "%s", "data": "%s" }' % (command, "" if data is None else str(data))).encode('utf8'))
         text = ""
         while 1:
             data = self.sock.recv(1024).decode('utf8')
@@ -40,3 +40,9 @@ class Connection:
             text = text+data
 
         return text
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close()
