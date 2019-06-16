@@ -21,7 +21,9 @@ class Args:
         while len(data) < values:
             data.append(default)
 
-        return data
+        if values == 1:
+            return data[0] if found and len(data) == 1 else default
+        return data if found else default
 
     def has(self, name):
         for i in self.arg:

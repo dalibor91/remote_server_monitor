@@ -1,9 +1,16 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import sys
 import os
+
+# add server load packages
+sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+
 import hashlib
+from server import APP_AUTH_DB
 
-
+'''
+TODO: refactor
+'''
 class User:
 	def __init__(self, user, passwd="", ip='*'):
 		self.setUser(user).setPass(passwd).setIp(ip)
@@ -17,7 +24,7 @@ class User:
 		return self
 
 	def setPass(self, passwd):
-		self.passwd = hashlib.sha224(passwd).hexdigest()
+		self.passwd = hashlib.sha224(passwd.encode('utf8')).hexdigest()
 		return self
 
 	def getIp(self):
@@ -58,21 +65,21 @@ class User:
 						lines.append(line)
 			open(_file, 'w').write(''.join(lines))
 			return True
-		except Exception, s:
+		except Exception as s:
 			raise Exception("Unable to read or write %s" % _file)
 		return False
 
 	def save(self, _file):
 		try:
 			open(_file, "a").write("%s:%s:%s\n" % (self.getUser(), self.getPass(), self.getIp()))
-		 	return True
+			return True
 		except:
 			raise Exception("Unable to write to %s" % _file)
 		return False
 
 def _input(text, default=None, required=False):
 	print(text)
-	inpt = raw_input()
+	inpt = input()
 
 	if inpt == '':
 		if required :
@@ -120,7 +127,7 @@ if __name__ == '__main__':
 	cmd = sys.argv[1]
 
 	data = {
-		"db": "%s/.pysock.db" % os.path.expanduser("~")
+		"db": APP_AUTH_DB
 	}
 
 	_next = None
@@ -131,7 +138,6 @@ if __name__ == '__main__':
 			continue
 		if i == '-f':
 			_next = 'db'
-
 
 	if cmd == 'add':
 		_addUser(data['db'])

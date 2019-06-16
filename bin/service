@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LOCK_FILE=/var/lock/py_socket_server/pss.lock
+LOCK_FILE=/var/lock/py_socket_server/rss.lock
 
 LOCK_DIR=$(dirname $LOCK_FILE)
 
@@ -42,11 +42,11 @@ function _start() {
 	local runing=$(_running)
 	if [ "$runing" = "0" ];
 	then 
-		./server.py $@ >> ./server.log 2>&1 &
+		bin/server.py $@ >> /tmp/remote_server_monitor.log 2>&1 &
 		if [ $? -eq 0 ];
 		then
 			echo $! > "$LOCK_FILE"
-			echo "Running..."
+			echo "Running... For logs check /tmp/remote_server_monitor.log"
 			disown
 		else
 		       	echo "Unable to start..."	

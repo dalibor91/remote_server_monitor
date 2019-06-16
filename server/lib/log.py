@@ -1,4 +1,17 @@
 from datetime import datetime
+from sys import stdout
+from sys import stderr
+
+
+def _log(msg):
+    stdout.write(msg)
+    stdout.flush()
+
+
+def _err(msg):
+    stderr.write(msg)
+    stderr.flush()
+
 
 class Log():
     @staticmethod
@@ -7,5 +20,9 @@ class Log():
     
     @staticmethod 
     def log(msg):
-        print("%s : %s", (Log.timestamp(), str(msg)))
+        _log("LOG %s : %s\n" % (Log.timestamp(), str(msg)))
+
+    @staticmethod
+    def err(msg):
+        _err("ERR %s : %s\n" % (Log.timestamp(), str(msg)))
 
