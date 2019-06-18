@@ -1,3 +1,5 @@
+from typing import Union
+from typing import Dict
 from ..log import Log
 import json
 
@@ -15,6 +17,7 @@ class Command:
 
     def try_decode(self):
         try:
+            # todo check for encryption and decrypt it
             self.obj_data = json.loads(self.raw_data.decode('utf8'))
             return True
         except Exception as e:
@@ -31,28 +34,26 @@ class Command:
         return None
 
     @property
-    def command(self):
+    def command(self) -> Union[Dict, str, None]:
         if 'command' in self.obj_data:
             return self.obj_data['command']
         return None
 
     @property
-    def data(self):
+    def data(self) -> Union[Dict, str, None]:
         if 'data' in self.obj_data:
             return self.obj_data['data']
         return None
 
-    def get(self, name):
+    def get(self, name: str) -> Union[Dict, str, None]:
         if self.data is not None and name in self.data:
             return self.data[name]
         return None
 
-    def is_command(self, *args):
+    def is_command(self, *args) -> bool:
         for cmd in args:
             if self.command is not None and cmd == self.command:
                 return True
 
         return False
-
-
 

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+VERSION=0.0.1
+MAINTAINER="Dalibor Menkovic"
+IMAGE_NAME="small-monitor"
+LOCK_FILE=/tmp/small_monitor.lock
+LOCK_DIR=$(dirname $LOCK_FILE)
+LOG_FILE=/tmp/small_monitor.log

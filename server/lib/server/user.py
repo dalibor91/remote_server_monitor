@@ -6,17 +6,17 @@ class Users:
     users = {}
 
     @staticmethod
-    def addUser(user, ps, ip):
+    def addUser(user: str, ps: str, ip: str):
         Users.users[user] = {"password": ps, "ip": ip}
 
     @staticmethod
-    def user(user):
+    def user(user: str):
         if user in Users.users:
             return Users.users[user]
         return None
 
     @staticmethod
-    def load(file_path):
+    def load(file_path: str):
         if not path.isfile(file_path):
             raise ServerException("path '%s' not found" % path)
 

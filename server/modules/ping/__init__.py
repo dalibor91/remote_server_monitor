@@ -1,7 +1,9 @@
 import platform as _platform
-import time
+from time import time
 from socket import gethostname
 from socket import gethostbyname
+from server.lib.server.auth_server import connections
+from server import APP_START
 
 
 def ping(_):
@@ -9,7 +11,7 @@ def ping(_):
 
 
 def timestamp(_):
-    return time.time()
+    return time()
 
 
 def hostname(_):
@@ -29,3 +31,11 @@ def platform(_):
         "system": _platform.system(),
         "uname": _platform.uname()
     }
+
+
+def open_connections(_):
+    return connections
+
+
+def uptime(_):
+    return time() - APP_START

@@ -11,29 +11,33 @@ def load_module(name):
     return importlib.import_module("server.modules.%s" % name)
 
 
+connections = {}
+
+
 class AuthServer(BaseRequestHandler):
     @property
-    def _get_str(self):
+    def _get_str(self) -> str:
         return str({
             "auth": self.auth,
             "auth_no": self.auth_no,
             "loop": self.loop,
         })
 
-    def _on_fail_response(self, e):
+    def _on_fail_response(self, e) -> None:
         self.loop = False
-        Log.err("Failed sending response AuthServer._on_fail_response")
+        Log.err("%s Failed sending response AuthServer._on_fail_response" % str(self.client_address))
         Log.err(e)
 
-    def _initialize(self):
+    def _initialize(self) -> None:
         ''' Initializes server '''
         self.auth = False
         self.auth_no = 0
         self.loop = True
         self.res = Response(self.request, self._on_fail_response)
-        Log.log("Initialize AuthServer._initialize()")
+        connections["%s:%s" % (self.client_address[0], self.client_address[1])] = 1
+        Log.log("%s Initialize AuthServer._initialize()" % str(self.client_address))
 
-    def _authorize(self, cmd):
+    def _authorize(self, cmd) -> None:
         ''' Authorizes user '''
         self.auth_no += 1
 
@@ -56,10 +60,10 @@ class AuthServer(BaseRequestHandler):
         else:
             self.res.err('auth fail')
 
-        Log.log("Initialize AuthServer._authorize(%s)" % self._get_str)
+        Log.log("%s Initialize AuthServer._authorize(%s)" % (str(self.client_address), self._get_str))
 
-    def _handle_cmd(self, cmd):
-        Log.log("AuthServer._handle_cmd(%s)" % str(cmd))
+    def _handle_cmd(self, cmd) -> None:
+        Log.log("%s AuthServer._handle_cmd(%s)" % (str(self.client_address), str(cmd.command)))
         if cmd.command:
             _data = cmd.command.rsplit('.', 1)
 
@@ -85,7 +89,7 @@ class AuthServer(BaseRequestHandler):
         else:
             self.res.err('command not found')
 
-    def handle(self):
+    def handle(self) -> None:
         self._initialize()
 
         while self.loop:
@@ -108,3 +112,8 @@ class AuthServer(BaseRequestHandler):
                 self._handle_cmd(cmd)
             else:
                 self.res.err("auth")
+
+        self.request.close()
+
+    def finish(self):
+        del connections["%s:%s" % (self.client_address[0], self.client_address[1])]

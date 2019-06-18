@@ -1,53 +1,104 @@
 # SocketServerPy
 
-lightweight monitoring tool in python
+lightweight monitoring tool with built tcp server, easy to extend with new modules
 
-server supports multiple clients at once, 
-requires authentifications 
-and data is exchanged in JSON format
+TCP server requires user auth and all transfered data is in json - utf8 format 
 
-add users 
+First we need to add users that can use this server 
 
+#### Options 
+
+ - cpu
+    - times
+    - percent
+    - count 
+    - stats 
+    - freq 
+    - load 
+ - disk
+    - partitions
+    - usage
+    - io_counters
+ - dummy
+    - dummy
+    - error
+ - memory
+    - virtual
+    - swap
+ - net
+ - ping
+    - ping 
+    - hostname
+    - timestamp
+    - ip 
+    - uptime
+    - platform
+
+
+#### Users 
+
+Adding 
 ```bash
+# add to default user database 
 bin/users.py add
+
+# add to specific user database 
+bin/users.py add -f /path/to/db 
 ```
 
-or 
-
-```bash
-bin/users.py add -f /path/to/db
-```
-
-remove users 
+Removing 
 ```bash
 bin/users.py remove 
 ```
 
-update users
+Updating
 ```bash
 bin/users.py update 
 ```
 
-running server 
+#### Server
+To run server with logs to stdout  
 ```bash
+# -h    - Option for ip address 127.0.0.1
+# -p    - Port which server will use 
+# -f    - Auth database that server will use 
+
 bin/server.py 
 ```
-or 
 
+To run server as daemon with logs piped to files use service
 ```bash
-bin/server -h localhost -p 9999 -f ./users.txt
+bin/service -h localhost -p 9999 -f ./users.txt
 ```
 
-run tests
+#### Tests 
+
+Tests are run inside docker container 
+To simple just run tests
 ```bash 
 bin/test
 ```
 
-host, port, file for auth 
-currently users are saved in single text file, but it can be extended to support databases 
+run tests and show logs from server 
+```bash
+bin/test dbg
+```
 
+
+#### Development
+
+For development using docker run 
+```bash
+bin/docker/build
+```
+
+this will build docker image, mount nececary volumes and forward port for you.
+
+all new modules, as current modules are under `server/modules` directory 
+
+
+#### Example
 connecting to the server 
-exaple:
 ```bash
 root@9a0139e2ae76:/server# telnet localhost 8765
 Trying 127.0.0.1...

@@ -1,5 +1,6 @@
 import json
 
+
 class Response:
     def __init__(self, response=None, error=None):
         self.set_response(response)

@@ -1,0 +1,54 @@
+#!/bin/bash
+
+function service_pid(){
+	if [ -f "$LOCK_FILE" ];
+	then
+		cat $LOCK_FILE;
+	fi
+}
+
+function service_running() {
+	local running=$(service_pid)
+	if [ ! "$running" = "" ];
+	then
+		kill -0 $running
+		if [ $? -eq 0 ];
+		then
+			echo "1"
+		else
+			echo "0"
+		fi
+	else
+		echo "0"
+	fi
+}
+
+function service_start() {
+
+	local runing=$(service_running)
+	if [ "$runing" = "0" ];
+	then
+		bin/server.py $@ >> $LOG_FILE 2>&1 &
+		if [ $? -eq 0 ];
+		then
+			echo $! > "$LOCK_FILE"
+			echo "Running..."
+			disown
+		else
+		       	echo "Unable to start..."
+		fi;
+	else
+		echo "Already runing!"
+		exit 1;
+	fi
+}
+
+function service_stop() {
+	local runing=$(service_running)
+	if [ "$runing" = "1" ];
+	then
+		kill $(service_pid)
+		rm $LOCK_FILE
+		echo "Stoped"
+	fi
+}

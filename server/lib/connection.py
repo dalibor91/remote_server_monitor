@@ -1,8 +1,22 @@
 import socket
 import json
+from typing import Union, Dict
+
+class Response:
+    def __init__(self, response):
+        self._response = json.loads(response)
+
+    @property
+    def is_error(self) -> bool:
+        return 'error' in self._response and self._response['error']
+
+    @property
+    def response(self) -> Union[None, Dict, str]:
+        return self._response['response']
+
 
 class Connection:
-    def __init__(self, user, passwd, host="localhost", port=8765):
+    def __init__(self, user: str, passwd: str, host: str = "localhost", port: int = 8765):
         self.host = host
         self.port = int(port)
         self.user = user
@@ -21,12 +35,16 @@ class Connection:
         resp = json.loads(self.sock.recv(100).decode('utf-8'))
         if 'error' in resp and not resp['error']:
             self.auth = True
+        else:
+            self.sock.close()
+            self.sock = None
 
     def close(self):
-        self.sock.send('{"command": "close"}'.encode('utf8'))
-        self.sock.close()
+        if self.sock:
+            self.sock.send('{"command": "close"}'.encode('utf8'))
+            self.sock.close()
 
-    def pool(self, command, data=None):
+    def pool(self, command: str, data: Union[None, str] = None):
         self.sock.send(('{ "command": "%s", "data": "%s" }' % (command, "" if data is None else str(data))).encode('utf8'))
         text = ""
         while 1:
@@ -40,6 +58,9 @@ class Connection:
             text = text+data
 
         return text
+
+    def get(self, command: str, data: Union[None, str] = None):
+        return Response(self.pool(command, data=data))
 
     def __enter__(self):
         return self

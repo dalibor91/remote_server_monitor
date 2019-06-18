@@ -10,7 +10,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from server.lib.server import AuthServer
 from server.lib.server import Users
-from server import APP_HOST, APP_PORT, APP_AUTH_DB
+from server import APP_HOST, APP_PORT, APP_AUTH_DB, APP_START
 
 # set authentification db
 Users.load(APP_AUTH_DB)
