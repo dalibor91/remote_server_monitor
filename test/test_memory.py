@@ -18,7 +18,7 @@ class TestMemory(TestWithConnection):
 
         for _field in self.virtual_memory_fields:
             if _field == 'percent':
-                self.assertIsInstance(_memory[_field], float)
+                self.assertIsInstance(_memory[_field], (float, int,))
             else:
                 self.assertIsInstance(_memory[_field], int)
 
@@ -27,6 +27,6 @@ class TestMemory(TestWithConnection):
 
         for _field in self.swap_memory_fields:
             if _field == 'percent':
-                self.assertIsInstance(_memory[_field], float)
+                self.assertIsInstance(_memory[_field], (float, int,))
             else:
                 self.assertIsInstance(_memory[_field], int)

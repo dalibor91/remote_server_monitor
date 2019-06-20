@@ -1,7 +1,13 @@
 language: python
 
+python:
+  - "3.5"
+
 services:
   - docker
+
+install:
+  pip install -r requirements.txt
 
 script:
   /bin/bash bin/test
