@@ -8,31 +8,34 @@ First we need to add users that can use this server
 
 #### Options 
 
- - cpu
-    - times
-    - percent
-    - count 
-    - stats 
-    - freq 
-    - load 
- - disk
-    - partitions
-    - usage
-    - io_counters
- - dummy
-    - dummy
-    - error
- - memory
-    - virtual
-    - swap
- - net
- - ping
-    - ping 
-    - hostname
-    - timestamp
-    - ip 
-    - uptime
-    - platform
+ - `cpu`
+    - `times    `
+    - `percent  [percpu]`
+    - `count    [logical]`
+    - `stats` 
+    - `freq     [percpu]`
+    - `load` 
+ - `disk`
+    - `partitions`
+    - `usage mount_point`
+    - `io_counters [perdisk]`
+ - `dummy`
+    - `dummy`
+    - `error`
+ - `memory`
+    - `virtual`
+    - `swap`
+ - `net`
+ - `ping`
+    - `ping`
+    - `hostname`
+    - `timestamp`
+    - `ip`
+    - `uptime`
+    - `platform`
+  - `process`
+    - `all`
+    - `pid id`
 
 
 #### Users 
