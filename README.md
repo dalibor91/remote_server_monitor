@@ -1,5 +1,7 @@
 # Small Monitor
 
+[![Build Status](https://travis-ci.org/dalibor91/remote_server_monitor.svg?branch=master)](https://travis-ci.org/dalibor91/remote_server_monitor)
+
 lightweight monitoring tool with built tcp server, easy to extend with new modules
 
 TCP server requires user auth and all transfered data is in json - utf8 format 
