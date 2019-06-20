@@ -37,4 +37,5 @@ then
     echo "TEST_OK";
 else
     echo "TEST_FAIL";
+    exit 1
 fi

@@ -1,6 +1,7 @@
 from test import TestWithoutConnection
 from time import sleep
 
+
 class TestConnection(TestWithoutConnection):
     def test_quit(self):
         con1 = self.connect("test", "test", host="0.0.0.0")

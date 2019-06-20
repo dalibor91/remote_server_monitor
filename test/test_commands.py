@@ -1,6 +1,6 @@
 import json
 from test import TestWithConnection
-from test import Connection
+
 
 class TestCommand(TestWithConnection):
     def test_command_not_valid(self) -> None:

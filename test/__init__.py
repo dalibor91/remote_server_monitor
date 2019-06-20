@@ -1,6 +1,7 @@
 import unittest
 import sys
 import os
+from typing import Any
 
 # add server load packages
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
@@ -19,3 +20,8 @@ class TestWithConnection(TestWithoutConnection):
 
     def tearDown(self) -> None:
         self.connection.close()
+
+    def get_ok(self, cmd, data=None) -> Any:
+        _response = self.connection.get(cmd, data=data)
+        self.assertFalse(_response.is_error)
+        return _response.response

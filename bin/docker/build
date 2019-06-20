@@ -10,5 +10,10 @@ docker build -t "${image_name}" .
 
 if [ "$1" = "" ];
 then
-    docker run -it --rm -v "`pwd`:/server" -p "8765:8765"  "${image_name}" /bin/bash
+    docker run -it --rm \
+        -v "`pwd`:/server" \
+        -p "8765:8765"  \
+        --name dsm \
+        --hostname dsm \
+        "${image_name}" /bin/bash
 fi

@@ -71,6 +71,24 @@ To run server as daemon with logs piped to files use service
 bin/service -h localhost -p 9999 -f ./users.txt
 ```
 
+#### Client 
+To start client on server run 
+```bash
+bin/client
+```
+
+example of successful connection 
+```bash
+root@5950bd5725d0:/server# bin/client
+> ping.ping
+>> pong
+> ping.hostname
+>> 5950bd5725d0
+> ping.ip
+>> 172.17.0.3
+> quit
+```
+
 #### Tests 
 
 Tests are run inside docker container 

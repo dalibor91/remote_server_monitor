@@ -28,7 +28,7 @@ function service_start() {
 	local runing=$(service_running)
 	if [ "$runing" = "0" ];
 	then
-		bin/server.py $@ >> $LOG_FILE 2>&1 &
+		bin/server $@ >> $LOG_FILE 2>&1 &
 		if [ $? -eq 0 ];
 		then
 			echo $! > "$LOCK_FILE"
