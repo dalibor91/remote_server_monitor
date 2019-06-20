@@ -24,7 +24,9 @@ class TestMemory(TestWithConnection):
                 if _name == 'terminal':
                     self.assertTrue(_val is None or isinstance(_val, str))
                 else:
-                    self.assertIsInstance(_val, self.fields[_name])
+                    self.assertIsInstance(_val, self.fields[_name],
+                                          msg=(" %s is not instance of %s for %s" %
+                                               (str(_val), str(self.fields[_name]), str(_name))))
 
     def test_pid(self):
         _pid = self.get_ok('process.all')[0]['pid']
@@ -33,4 +35,6 @@ class TestMemory(TestWithConnection):
             if _name == 'terminal':
                 self.assertTrue(_val is None or isinstance(_val, str))
             else:
-                self.assertIsInstance(_val, self.fields[_name])
+                self.assertIsInstance(_val, self.fields[_name],
+                                      msg=(" %s is not instance of %s for %s" %
+                                           (str(_val), str(self.fields[_name]), str(_name))))
