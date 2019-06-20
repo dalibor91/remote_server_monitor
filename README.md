@@ -1,4 +1,4 @@
-# SocketServerPy
+# Small Monitor
 
 lightweight monitoring tool with built tcp server, easy to extend with new modules
 
