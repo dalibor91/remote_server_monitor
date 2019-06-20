@@ -1,0 +1,19 @@
+#!/bin/bash 
+
+DIR="$( cd "$(dirname $( dirname "${BASH_SOURCE[0]}" ))" >/dev/null 2>&1 && pwd )"
+
+. "${DIR}/bash/vars"
+
+image_name="${IMAGE_NAME}:${VERSION}"
+
+docker build -t "${image_name}" .
+
+if [ "$1" = "" ];
+then
+    docker run -it --rm \
+        -v "`pwd`:/server" \
+        -p "8765:8765"  \
+        --name dsm \
+        --hostname dsm \
+        "${image_name}" /bin/bash
+fi
