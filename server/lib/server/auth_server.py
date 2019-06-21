@@ -12,6 +12,12 @@ def load_module(name):
 
 
 connections = {}
+stop_server = False
+
+
+def kill_server():
+    global stop_server
+    stop_server = True
 
 
 class AuthServer(BaseRequestHandler):
@@ -92,7 +98,7 @@ class AuthServer(BaseRequestHandler):
     def handle(self) -> None:
         self._initialize()
 
-        while self.loop:
+        while self.loop and not stop_server:
             cmd = Command.from_request(self.request)
             if cmd.is_empty:
                 self.res.ok('quit_empty')
