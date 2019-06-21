@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
-import sys
 import os
+import sys
+import time
+import signal
 from socketserver import ThreadingTCPServer
 from threading import Thread
 
@@ -9,11 +11,17 @@ from threading import Thread
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from server.lib.server import AuthServer
+from server.lib.server import kill_server
 from server.lib.server import Users
+from server.lib import Log
 from server import APP_HOST, APP_PORT, APP_AUTH_DB, APP_START
 
-# set authentification db
-Users.load(APP_AUTH_DB)
+try:
+    # set authentification db
+    Users.load(APP_AUTH_DB)
+except Exception as e:
+    Log.err("Unable to load users: %s" % str(e))
+    sys.exit(1)
 
 # setup threading server
 server = ThreadingTCPServer((APP_HOST, APP_PORT), AuthServer)
@@ -25,6 +33,20 @@ ip, port = server.server_address
 _server = Thread(target=server.serve_forever)
 _server.daemon = True
 
-print("Server started:\n\tHost: %s\n\tPort: %d" % (ip, port))
+
+def server_stop(_, __):
+    global server
+    Log.log("Stopping server...")
+    kill_server()
+    time.sleep(2)
+    sys.exit(0)
+
+
+signal.signal(signal.SIGINT, server_stop)
+signal.signal(signal.SIGTERM, server_stop)
+
+Log.log("Starting...")
+Log.log("IP    : %s" % ip)
+Log.log("Port  : %s" % port)
 
 _server.run()
