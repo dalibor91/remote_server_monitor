@@ -18,7 +18,7 @@ class Users:
     @staticmethod
     def load(file_path: str):
         if not path.isfile(file_path):
-            raise ServerException("path '%s' not found" % path)
+            raise ServerException("path '%s' not found" % file_path)
 
         with open(file_path, "r") as auth_file:
             for line in auth_file.readlines():

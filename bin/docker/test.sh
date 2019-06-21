@@ -1,8 +1,10 @@
-#!/bin/bash 
+#!/usr/bin/env bash
+
+######################################################### Code
 
 . bin/bash/vars
 
-bin/service start > /dev/null
+bin/service start >> /tmp/service_start
 
 cd test
 
@@ -30,11 +32,13 @@ else
     exit 1
 fi
 
-bin/service stop > /dev/null
+bin/service stop >> /tmp/service_stop
+
+######################################################### Service
 
 echo "Testing service:"
 
-bin/service start
+bin/service start >> /tmp/service_start
 
 if [ -f "${LOCK_FILE}" ];
 then
@@ -52,12 +56,52 @@ else
     exit 1;
 fi;
 
-bin/service stop
+if [ "`bin/service status`" = "running" ];
+then
+    echo "Service reports as running. OK";
+else
+    echo "Service reports as not running";
+    exit 1;
+fi
+
+bin/service stop >> /tmp/service_stop
 
 if [ -f "${LOCK_FILE}" ];
 then
     echo "Lock file still exists after stop: ${LOCK_FILE}"
     exit 1;
 else
-    echo "Lock file removed! OK"
+    echo "Lock file removed. OK"
 fi;
+
+if [ "`bin/service status`" = "not running" ];
+then
+    echo "Service reports as not running. OK";
+else
+    echo "Service reports as running";
+    exit 1;
+fi
+
+######################################################### Install
+echo "Testing install:"
+
+bin/bash/install >> /tmp/install
+
+if ! [ $? -eq 0 ];
+then
+    echo "Unable to install";
+    cat /tmp/install
+    exit 1;
+fi
+
+SERVICES="${SERVICE_LOCATION} ${SERVER_LOCATION} ${USERS_LOCATION}"
+for service_file in $SERVICES;
+do
+    if ! [ "`which "$(basename ${service_file})"`" = "${service_file}" ];
+    then
+        echo "${service_file} not found!";
+        exit 1
+    else
+        echo "Found `which "$(basename ${service_file})"`. OK"
+    fi
+done
