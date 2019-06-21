@@ -7,29 +7,38 @@ import json
 # add server load packages
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
+from server.lib import Args
 from server.lib import Connection
 
-con = Connection("test", "test", host="0.0.0.0")
+_args = Args(sys.argv)
+CONNECT_USER = _args.get('-u', default="test")
+CONNECT_PASS = _args.get('-p', default="test")
+CONNECT_HOST = _args.get('-h', default="0.0.0.0")
 
-while True:
-    _command = input("> ")
-    if _command == 'quit':
-        break
+try:
+    con = Connection(CONNECT_USER, CONNECT_PASS, host=CONNECT_HOST)
 
-    __command = _command.split(" ", 2)
+    while True:
+        _command = input("> ")
+        if _command == 'quit':
+            break
 
-    data = None
-    command = None
-    if len(__command) == 2:
-        command, data = __command
-    else:
-        command = __command[0]
+        __command = _command.split(" ", 2)
 
-    res = json.loads(con.pool(command, data=data), encoding='utf8')
+        data = None
+        command = None
+        if len(__command) == 2:
+            command, data = __command
+        else:
+            command = __command[0]
 
-    if res['error']:
-        print(">> ERROR: %s" % res['response'])
-    else:
-        print(">> %s" % res['response'])
+        res = json.loads(con.pool(command, data=data), encoding='utf8')
 
-con.close()
+        if res['error']:
+            print(">> ERROR: %s" % res['response'])
+        else:
+            print(">> %s" % res['response'])
+
+    con.close()
+except Exception as e:
+    print("Unable to connect %s@%s" % (CONNECT_USER, CONNECT_HOST))

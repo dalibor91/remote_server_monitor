@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
@@ -16,7 +16,15 @@ elif [ "$1" = "restart" ];
 then
 	service_stop
 	service_start $@
-else 
+elif [ "$1" = "status" ];
+then
+    if [ "`service_running`" = "1" ];
+    then
+        echo 'running';
+    else
+        echo 'not running';
+    fi
+else
 	echo "Unknown command"
 	exit 1;
 fi

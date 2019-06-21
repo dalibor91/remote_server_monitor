@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function service_pid(){
 	if [ -f "$LOCK_FILE" ];

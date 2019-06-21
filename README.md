@@ -1,6 +1,6 @@
 # Small Monitor
 
-[![Build Status](https://travis-ci.org/dalibor91/remote_server_monitor.svg?branch=master)](https://travis-ci.org/dalibor91/remote_server_monitor)
+[![Build Status](https://travis-ci.org/dalibor91/pymonitor.svg?branch=master)](https://travis-ci.org/dalibor91/pymonitor)
 
 lightweight monitoring tool with built tcp server, easy to extend with new modules
 
@@ -139,4 +139,29 @@ Escape character is '^]'.
 {"response": "pong", "error": false}
 {"command":"ping.timestamp"}
 {"response": 1560706119.0714605, "error": false}
+```
+
+#### Installation 
+
+```bash
+cd /tmp/
+git clone https://github.com/dalibor91/pymonitor.git pymonitor
+cd pymonitor
+/bin/bash bin/bash/install
+```
+
+#### Service 
+
+```bash
+# service 
+pymomitorctl [start|stop|restart|status]
+
+# user management
+pymonitorusr [add|remove|update]
+
+# direct access to server 
+pymonitor    [-h host] [-p port] [-f authdb]
+
+# client
+pymonitorcli [-h host] [-u user] [-p password]
 ```

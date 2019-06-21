@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+if [ "`which git`" = "" ];
+then
+    echo "Please install git";
+    exit 1;
+fi
+
+if ! [ "`whoami`" = "root" ];
+then
+    echo "Please run this as root";
+    exit 2;
+fi
+
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+. "${DIR}/vars"
+
+git clone "${GIT_REPOSITORY}" "${INSTALL_LOCATION}"
+
+if ! [ $? -eq 0 ];
+then
+    echo "Unable to clone to ${INSTALL_LOCATION}";
+    exit 3;
+fi
+
+function add_to_path() {
+    echo "#!/usr/bin/env bash
+${1} \$@
+    " > "${2}";
+    if ! [ $? -eq 0 ];
+    then
+        echo "Unable to create link for ${2}";
+        exit $3;
+    fi
+
+    chmod +x $2
+}
+
+add_to_path "${INSTALL_LOCATION}/bin/service" "${SERVICE_LOCATION}" 4
+add_to_path "${INSTALL_LOCATION}/bin/server" "${SERVER_LOCATION}" 5
+add_to_path "${INSTALL_LOCATION}/bin/users.py" "${USERS_LOCATION}" 6
+add_to_path "${INSTALL_LOCATION}/bin/client" "${CLIENT_LOCATION}" 7
