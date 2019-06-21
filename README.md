@@ -140,3 +140,28 @@ Escape character is '^]'.
 {"command":"ping.timestamp"}
 {"response": 1560706119.0714605, "error": false}
 ```
+
+#### Installation 
+
+```bash
+cd /tmp/
+git clone https://github.com/dalibor91/pymonitor.git pymonitor
+cd pymonitor
+/bin/bash bin/bash/install
+```
+
+#### Service 
+
+```bash
+# service 
+pymomitorctl [start|stop|restart|status]
+
+# user management
+pymonitorusr [add|remove|update]
+
+# direct access to server 
+pymonitor    [-h host] [-p port] [-f authdb]
+
+# client
+pymonitorcli [-h host] [-u user] [-p password]
+```

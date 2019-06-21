@@ -8,6 +8,7 @@ INSTALL_LOCATION="/usr/share/pymonitor"
 USERS_LOCATION="/bin/pymonitorusr"
 SERVICE_LOCATION="/bin/pymonitorctl"
 SERVER_LOCATION="/bin/pymonitor"
+CLIENT_LOCATION="/bin/pymonitorcli"
 LOCK_FILE=/tmp/small_monitor.lock
 LOCK_DIR=$(dirname $LOCK_FILE)
 LOG_FILE=/tmp/small_monitor.log
