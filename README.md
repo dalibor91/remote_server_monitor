@@ -1,6 +1,6 @@
 # Small Monitor
 
-[![Build Status](https://travis-ci.org/dalibor91/remote_server_monitor.svg?branch=master)](https://travis-ci.org/dalibor91/remote_server_monitor)
+[![Build Status](https://travis-ci.org/dalibor91/pymonitor.svg?branch=master)](https://travis-ci.org/dalibor91/pymonitor)
 
 lightweight monitoring tool with built tcp server, easy to extend with new modules
 
