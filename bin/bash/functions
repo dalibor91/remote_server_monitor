@@ -11,7 +11,7 @@ function service_running() {
 	local running=$(service_pid)
 	if [ ! "$running" = "" ];
 	then
-		kill -0 $running
+		kill -0 $running > /dev/null 2>&1
 		if [ $? -eq 0 ];
 		then
 			echo "1"
