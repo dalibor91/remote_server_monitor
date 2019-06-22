@@ -94,7 +94,7 @@ then
     exit 1;
 fi
 
-SERVICES="${SERVICE_LOCATION} ${SERVER_LOCATION} ${USERS_LOCATION}"
+SERVICES="${SERVICE_LOCATION} ${SERVER_LOCATION} ${USERS_LOCATION} ${CLIENT_LOCATION}"
 for service_file in $SERVICES;
 do
     if ! [ "`which "$(basename ${service_file})"`" = "${service_file}" ];
