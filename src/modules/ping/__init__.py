@@ -2,8 +2,8 @@ import platform as _platform
 from time import time
 from socket import gethostname
 from socket import gethostbyname
-from server.lib.server.auth_server import connections
-from server import APP_START
+from src.lib.server.auth_server import connections
+from src import APP_START
 
 
 def ping(_):

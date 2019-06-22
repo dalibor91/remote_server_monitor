@@ -7,14 +7,14 @@ import signal
 from socketserver import ThreadingTCPServer
 from threading import Thread
 
-# add server load packages
+# add src load packages
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
-from server.lib.server import AuthServer
-from server.lib.server import kill_server
-from server.lib.server import Users
-from server.lib import Log
-from server import APP_HOST, APP_PORT, APP_AUTH_DB, APP_START
+from src.lib.server import AuthServer
+from src.lib.server import kill_server
+from src.lib.server import Users
+from src.lib import Log
+from src import APP_HOST, APP_PORT, APP_AUTH_DB, APP_START
 
 try:
     # set authentification db
@@ -23,10 +23,10 @@ except Exception as e:
     Log.err("Unable to load users: %s" % str(e))
     sys.exit(1)
 
-# setup threading server
+# setup threading src
 server = ThreadingTCPServer((APP_HOST, APP_PORT), AuthServer)
 
-# get server information
+# get src information
 ip, port = server.server_address
 
 # start threading
@@ -36,7 +36,7 @@ _server.daemon = True
 
 def server_stop(_, __):
     global server
-    Log.log("Stopping server...")
+    Log.log("Stopping src...")
     kill_server()
     time.sleep(2)
     sys.exit(0)

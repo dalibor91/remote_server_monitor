@@ -1,4 +1,4 @@
-from server.modules import named_tuple_to_dict as nttd
+from src.modules import named_tuple_to_dict as nttd
 
 
 def get_proc_info(proc):

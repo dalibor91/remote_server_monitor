@@ -8,7 +8,7 @@ import importlib
 
 
 def load_module(name):
-    return importlib.import_module("server.modules.%s" % name)
+    return importlib.import_module("src.modules.%s" % name)
 
 
 connections = {}

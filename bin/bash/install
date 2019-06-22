@@ -39,6 +39,6 @@ ${1} \$@
 }
 
 add_to_path "${INSTALL_LOCATION}/bin/service" "${SERVICE_LOCATION}" 4
-add_to_path "${INSTALL_LOCATION}/bin/server" "${SERVER_LOCATION}" 5
+add_to_path "${INSTALL_LOCATION}/bin/src" "${SERVER_LOCATION}" 5
 add_to_path "${INSTALL_LOCATION}/bin/users.py" "${USERS_LOCATION}" 6
 add_to_path "${INSTALL_LOCATION}/bin/client" "${CLIENT_LOCATION}" 7

@@ -4,11 +4,11 @@ import sys
 import os
 import json
 
-# add server load packages
+# add src load packages
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
-from server.lib import Args
-from server.lib import Connection
+from src.lib import Args
+from src.lib import Connection
 
 _args = Args(sys.argv)
 CONNECT_USER = _args.get('-u', default="test")

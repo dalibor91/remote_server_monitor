@@ -2,11 +2,11 @@
 import sys
 import os
 
-# add server load packages
+# add src load packages
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 import hashlib
-from server import APP_AUTH_DB
+from src import APP_AUTH_DB
 
 '''
 TODO: refactor

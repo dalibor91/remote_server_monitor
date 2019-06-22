@@ -6,7 +6,7 @@ from typing import Any
 # add server load packages
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
-from server.lib import Connection
+from src.lib import Connection
 
 
 class TestWithoutConnection(unittest.TestCase):

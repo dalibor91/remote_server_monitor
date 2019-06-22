@@ -65,8 +65,8 @@ bin/users.py update
 To run server with logs to stdout  
 ```bash
 # -h    - Option for ip address 127.0.0.1
-# -p    - Port which server will use 
-# -f    - Auth database that server will use 
+src
+src
 
 bin/server.py 
 ```
