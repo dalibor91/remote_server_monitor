@@ -11,12 +11,13 @@ from server.lib import Args
 from server.lib import Connection
 
 _args = Args(sys.argv)
-CONNECT_USER = _args.get('-u', default="test")
-CONNECT_PASS = _args.get('-p', default="test")
-CONNECT_HOST = _args.get('-h', default="0.0.0.0")
+CONNECT_USER = _args.get('user', default="test")
+CONNECT_PASS = _args.get('pass', default="test")
+CONNECT_HOST = _args.get('host', default="0.0.0.0")
+CONNECT_PORT = int(_args.get('port', default=8765))
 
 try:
-    con = Connection(CONNECT_USER, CONNECT_PASS, host=CONNECT_HOST)
+    con = Connection(CONNECT_USER, CONNECT_PASS, host=CONNECT_HOST, port=CONNECT_PORT)
 
     while True:
         _command = input("> ")
