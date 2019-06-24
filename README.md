@@ -147,6 +147,7 @@ Escape character is '^]'.
 cd /tmp/
 git clone https://github.com/dalibor91/pymonitor.git pymonitor
 cd pymonitor
+pip3 install -r requirements.txt
 /bin/bash bin/bash/install
 ```
 
@@ -163,5 +164,5 @@ pymonitorusr [add|remove|update]
 pymonitor    [-h host] [-p port] [-f authdb]
 
 # client
-pymonitorcli [-h host] [-u user] [-p password]
+pymonitorcli [-host host] [-user user] [-pass password]
 ```
